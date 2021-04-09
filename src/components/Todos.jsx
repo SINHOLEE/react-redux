@@ -2,15 +2,25 @@ import React from 'react';
 
 const TodoItem = ({ todo, onToggle, onRemove }) => {
   return (
-    <div>
+    <div data-testid={`todo__${todo.id}`}>
       <input
         type="checkbox"
         onClick={() => onToggle(todo.id)}
         checked={todo.done}
         readOnly={true}
+        data-testid={'todo__input'}
       />
-      <span>{todo.text}</span>
-      <button onClick={() => onRemove(todo.id)}>삭제</button>
+      <span data-testid={'todo__text'}>{todo.text}</span>
+      <div>
+        <div>
+          <button
+            onClick={() => onRemove(todo.id)}
+            data-testid={`todo__remove-btn`}
+          >
+            <span>삭제</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
@@ -37,9 +47,13 @@ const Todos = ({
   };
 
   return (
-    <div>
+    <div className="todos">
       <form onSubmit={onSubmit}>
-        <input onChange={onChange} value={input}></input>
+        <input
+          onChange={onChange}
+          value={input}
+          data-testid="todos__form__input"
+        ></input>
         <button type="submit">등록</button>
       </form>
       {todos.map((todo) => (
